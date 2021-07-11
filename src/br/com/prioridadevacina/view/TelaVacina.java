@@ -153,26 +153,34 @@ public class TelaVacina extends javax.swing.JFrame {
         boolean prioridadeIdade;
         boolean prioridadeComorbidade;
         
+        //Verificar campos sem preenchimento e retornar mensagem
         if (receberNome.getText().equals("") || recebertData.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Preencha os campos.");
         } else {
+            //Instanciando e recebendo campos preenchidos
             Pessoa p = new Pessoa(receberNome.getText(), Double.parseDouble(recebertData.getText()));
             Comorbidade comorb = new Comorbidade(selecionarComorbidade.getSelectedIndex());
             p.setComorbidade(comorb);
 
+            //Instancia da tabela criada
             DefaultTableModel model = (DefaultTableModel)tabela.getModel();
 
+            //Verificando se existe prioridade de idade
             prioridadeIdade = p.prioridadeIdade();
+            //Verificando se existe Comorbidade
             prioridadeComorbidade = Comorbidade.validar(comorb.getOpcao());
 
+            //Retornando mensagem em caso de prioridade ou não
             if(prioridadeIdade || prioridadeComorbidade){
                 mensagem.setText("Você tem " + p.getIdade() + " anos e possui prioridade para Vacinação.");
             } else {
                 mensagem.setText("Você não possui prioridade para Vacinação.");
             }
 
+            //Preenchendo as informações da tabela
             model.addRow(new Object[]{p.getNome(), p.getIdade(), (prioridadeIdade || prioridadeComorbidade) ? "Sim" : "Nao"});
 
+            //Zerando os campos na Interface Gráfica
             receberNome.setText("");
             recebertData.setText("");
             selecionarComorbidade.setSelectedIndex(0);
