@@ -9,8 +9,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class TelaVacina extends javax.swing.JFrame {
     
-    List<Pessoa> pessoas = new ArrayList<>();
-    
     public TelaVacina() {
         initComponents();
     }
